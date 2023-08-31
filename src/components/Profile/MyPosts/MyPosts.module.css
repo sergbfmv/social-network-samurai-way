@@ -1,0 +1,15 @@
+.myPosts {
+    /*background-color: #fff;*/
+    /*border-radius: 10px;*/
+    padding: 10px;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 5px;
+    gap: 10px;
+    margin-top: 10px;
+}

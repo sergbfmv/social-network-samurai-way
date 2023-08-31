@@ -1,0 +1,41 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.dialogsItems {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    gap: 10px;
+}
+
+.dialog a {
+    color: black;
+}
+
+.dialog a.active {
+    color: #1c52e1;
+    border: 1px solid;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.message {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
+}
