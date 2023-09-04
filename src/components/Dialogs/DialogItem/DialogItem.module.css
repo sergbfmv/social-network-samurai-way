@@ -1,0 +1,10 @@
+.dialog a {
+    color: black;
+}
+
+.dialog a.active {
+    color: #1c52e1;
+    border: 1px solid;
+    padding: 3px;
+    border-radius: 5px;
+}

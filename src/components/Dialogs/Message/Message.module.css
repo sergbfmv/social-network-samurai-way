@@ -1,0 +1,18 @@
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.message {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.message img {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
