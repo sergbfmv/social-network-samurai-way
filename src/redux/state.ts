@@ -48,6 +48,9 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -95,5 +98,18 @@ export const store: StoreType = {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber(this._state)
         }
+    }
+}
+
+export const addPostActionCreator = (): AddPostActionType => {
+    return {
+        type: ADD_POST,
+    }
+}
+
+export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text
     }
 }
