@@ -27,7 +27,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Route path='/profile'
                        render={() => <Profile state={state.profilePage} dispatch={props.dispatch}/>}/>
                 <Route path='/dialogs'
-                       render={() => <Dialogs state={state.dialogsPage}/>}/>
+                       render={() => <Dialogs store={props.store}/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
