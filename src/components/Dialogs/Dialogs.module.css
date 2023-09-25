@@ -39,3 +39,30 @@
     background-color: #fff;
     padding: 10px;
 }
+
+.sendMessageForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 56px;
+}
+
+.messageArea {
+    width: 75%;
+    height: 20px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    resize: none;
+    font-size: 16px;
+}
+
+.sendMessageBtn {
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #1c52e1;
+    color: white;
+    border: none;
+}

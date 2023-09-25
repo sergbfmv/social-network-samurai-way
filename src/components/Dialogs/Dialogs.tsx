@@ -42,10 +42,10 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <div>
+                <div className={s.sendMessageForm}>
                     <textarea value={newMessageBody} onChange={onNewMessageChange}
-                              placeholder='Enter message'></textarea>
-                    <button onClick={onSendMessageClick}>Send</button>
+                              placeholder='Enter message' className={s.messageArea}></textarea>
+                    <button className={s.sendMessageBtn} onClick={onSendMessageClick}>Send</button>
                 </div>
             </div>
         </div>
