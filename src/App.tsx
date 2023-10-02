@@ -8,7 +8,7 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {ActionsTypes, StoreType} from "./redux/state";
+import {ActionsTypes, RootStateType, StoreType} from "./redux/store";
 
 
 type AppPropsType = {
@@ -18,7 +18,6 @@ type AppPropsType = {
 
 const App: React.FC<AppPropsType> = (props) => {
     const state = props.store.getState()
-
     return (
         <div className='app-wrapper'>
             <Header/>

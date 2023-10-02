@@ -32,6 +32,7 @@ export type DialogsPageType = {
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebarPage: {}
 }
 
 export type AddPostActionType = {
@@ -91,7 +92,8 @@ export const store: StoreType = {
                 {id: 5, message: 'Man!'},
             ],
             newMessageBody: ''
-        }
+        },
+        sidebarPage: {}
     },
     _callSubscriber(state: RootStateType) {
 
