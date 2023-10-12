@@ -1,65 +1,64 @@
 import {ProfileReducer} from "./ProfileReducer";
 import {DialogsReducer} from "./DialogsReducer";
-import {SideBarReducer} from "./SideBarReducer";
 
-export type MessagesType = {
+type MessagesType = {
     id: number
     message: string
 }
 
-export type DialogsType = {
+type DialogsType = {
     id: number
     name: string
 }
 
-export type PostsType = {
+type PostsType = {
     id: number
     message: string
     likesCount: number
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newMessageBody: string
 }
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebarPage: {}
 }
 
-export type AddPostActionType = {
+type AddPostActionType = {
     type: 'ADD-POST'
 }
 
-export type UpdateNewPostTextActionType = {
+type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
 
-export type UpdateNewMessageBodyActionType = {
+type UpdateNewMessageBodyActionType = {
     type: 'UPDATE-NEW-MESSAGE-BODY'
     body: string
 }
 
-export type SendMessageActionType = {
+type SendMessageActionType = {
     type: 'SEND-MESSAGE'
 }
 
-export type ActionsTypes =
+type ActionsTypes =
     AddPostActionType
     | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
 
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _callSubscriber: (state: RootStateType) => void
@@ -67,7 +66,7 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
