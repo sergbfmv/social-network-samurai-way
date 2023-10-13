@@ -13,10 +13,10 @@ type DialogsPropsType = {
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const state = props.dialogsPage
-    let messagesElements = state.messages.map((m) => <Message message={m.message} id={m.id}/>)
+    let messagesElements = state.messages.map((m) => <Message key={m.id} message={m.message} id={m.id}/>)
     let dialogsElements = state.dialogs.map((d) => {
         return (
-            <DialogItem name={d.name} id={d.id}/>
+            <DialogItem key={d.id} name={d.name} id={d.id}/>
         )
     })
     const newMessageBody = state.newMessageBody

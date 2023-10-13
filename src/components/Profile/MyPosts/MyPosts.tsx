@@ -32,7 +32,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     let postsElements = props.posts.map((p) => {
         return (
-            <Post message={p.message} likesCount={p.likesCount}/>
+            <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
         )
     })
 
