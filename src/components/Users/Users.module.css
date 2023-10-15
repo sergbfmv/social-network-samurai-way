@@ -1,0 +1,53 @@
+.users {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.user {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.avatarBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userAvatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.textBlock {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #d0d0d0;
+    border-radius: 10px;
+}
+
+.userName {
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.locationBlock {
+    text-align: right;
+}
+
+.userCountry {
+    font-weight: bold;
+    margin-bottom: 20px;
+}

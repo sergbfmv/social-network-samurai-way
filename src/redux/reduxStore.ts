@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {AddPostActionType, ProfileReducer, UpdateNewPostTextActionType} from "./ProfileReducer";
 import {DialogsReducer, SendMessageActionType, UpdateNewMessageBodyActionType} from "./DialogsReducer";
 import {SideBarReducer} from "./SideBarReducer";
+import {UsersReducer} from "./UsersReducer";
 
 
 export type ActionsTypes =
@@ -21,7 +22,8 @@ type StoreType = {
 const rootReducer = combineReducers({
     profilePage: ProfileReducer,
     dialogsPage: DialogsReducer,
-    sidebarPage: SideBarReducer
+    sidebarPage: SideBarReducer,
+    usersPage: UsersReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
