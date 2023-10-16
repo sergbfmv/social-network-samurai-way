@@ -18,10 +18,13 @@ type LocationType = {
 export type UsersType = {
     id: number
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationType
-    photoUrl: string
+    photos: {
+        small: string
+        large: string
+    }
 }
 
 export type UsersPageType = {
@@ -53,7 +56,7 @@ export const UsersReducer = (state: UsersPageType = initialState, action: Action
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
             }
         default:
             return state
