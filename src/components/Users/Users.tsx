@@ -12,12 +12,13 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
-
-    axios
-        .get('https://social-network.samuraijs.com/api/1.0/users')
-        .then(res => {
-            props.setUsers(res.data.items)
-        })
+    const getUsers = () => {
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(res => {
+                props.setUsers(res.data.items)
+            })
+    }
 
     // if (props.users.length === 0) {
     //     props.setUsers([
@@ -50,6 +51,7 @@ export const Users = (props: UsersPropsType) => {
 
     return (
         <div className={s.users}>
+            <button onClick={getUsers}>Get Users</button>
             {props.users.map(u => {
                 return (
                     <div key={u.id} className={s.user}>
