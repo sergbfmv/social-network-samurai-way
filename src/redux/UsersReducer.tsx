@@ -8,11 +8,11 @@ type UnfollowACType = {
     userId: number
 }
 
-type SetUsersAC = ReturnType<typeof setUsersAC>
+type SetUsersAC = ReturnType<typeof setUsers>
 
-type SetCurrentPageAC = ReturnType<typeof setCurrentPageAC>
-type SetTotalUsersCountAC = ReturnType<typeof setTotalUsersCountAC>
-type ToggleIsLoadingAC = ReturnType<typeof toggleIsLoadingAC>
+type SetCurrentPageAC = ReturnType<typeof setCurrentPage>
+type SetTotalUsersCountAC = ReturnType<typeof setTotalUsersCount>
+type ToggleIsLoadingAC = ReturnType<typeof toggleIsLoading>
 
 type LocationType = {
     city: string
@@ -99,42 +99,42 @@ export const UsersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 
-export const followAC = (userId: number): FollowACType => {
+export const follow = (userId: number): FollowACType => {
     return {
         type: FOLLOW,
         userId
     }
 }
 
-export const unfollowAC = (userId: number): UnfollowACType => {
+export const unfollow = (userId: number): UnfollowACType => {
     return {
         type: UNFOLLOW,
         userId
     }
 }
 
-export const setUsersAC = (users: UsersType[]) => {
+export const setUsers = (users: UsersType[]) => {
     return {
         type: SET_USERS,
         users
     } as const
 }
 
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage
     } as const
 }
 
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
     return {
         type: SET_TOTAL_USERS_COUNT,
         totalCount
     } as const
 }
 
-export const toggleIsLoadingAC = (isLoading: boolean) => {
+export const toggleIsLoading = (isLoading: boolean) => {
     return {
         type: TOGGLE_IS_LOADING,
         isLoading
