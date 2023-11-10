@@ -5,19 +5,19 @@ import {SideBarReducer} from "./SideBarReducer";
 import {UsersReducer} from "./UsersReducer";
 
 
-export type ActionsTypes =
-    AddPostActionType
-    | UpdateNewPostTextActionType
-    | UpdateNewMessageBodyActionType
-    | SendMessageActionType
+// export type ActionsTypes =
+//     AddPostActionType
+//     | UpdateNewPostTextActionType
+//     | UpdateNewMessageBodyActionType
+//     | SendMessageActionType
 
-type StoreType = {
-    _state: AppStateType
-    getState: () => AppStateType
-    _callSubscriber: (state: AppStateType) => void
-    subscribe: (observer: () => void) => void
-    dispatch: (action: ActionsTypes) => void
-}
+// type StoreType = {
+//     _state: AppStateType
+//     getState: () => AppStateType
+//     _callSubscriber: (state: AppStateType) => void
+//     subscribe: (observer: () => void) => void
+//     dispatch: (action: ActionsTypes) => void
+// }
 
 const rootReducer = combineReducers({
     profilePage: ProfileReducer,

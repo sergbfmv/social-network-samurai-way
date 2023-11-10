@@ -1,9 +1,8 @@
-import {ActionsTypes} from "./reduxStore";
-
+type ActionsType = {}
 
 const initialState = {}
 
-export const SideBarReducer = (state: any = initialState, action: ActionsTypes) => {
+export const SideBarReducer = (state: any = initialState, action: ActionsType) => {
 
     return state
 }

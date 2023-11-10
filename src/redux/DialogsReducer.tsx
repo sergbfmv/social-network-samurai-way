@@ -1,5 +1,3 @@
-import {ActionsTypes} from "./reduxStore";
-
 type MessagesType = {
     id: number
     message: string
@@ -24,6 +22,10 @@ export type DialogsPageType = {
     messages: MessagesType[]
     newMessageBody: string
 }
+
+type ActionsTypes =
+    | UpdateNewMessageBodyActionType
+    | SendMessageActionType
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';

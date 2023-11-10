@@ -5,15 +5,12 @@ import {
     setTotalUsersCount,
     setUsers, toggleIsLoading,
     unfollow,
-    UsersPageType,
     UsersType
 } from "../../redux/UsersReducer";
-import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/reduxStore";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
-import preloader from '../../assets/images/preloader.gif'
 import {Preloader} from "../common/preloader/Preloader";
 
 type UsersPropsType = {
@@ -57,7 +54,6 @@ export class UsersContainer extends React.Component<UsersPropsType> {
     }
 
     render() {
-
 
         return (
             <>
