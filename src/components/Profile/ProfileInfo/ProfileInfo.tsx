@@ -20,9 +20,11 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
                      alt="bg-image"/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
-                <p>{props.profile.aboutMe}</p>
-                <p><b>Ищу работу:</b> {props.profile.lookingForAJobDescription}</p>
+                <img alt={'avatar'} src={props.profile.photos.large} className={s.avatarLarge}/>
+                <div className={s.infoBlock}>
+                    <p><b>О себе:</b> {props.profile.aboutMe}</p>
+                    <p><b>Ищу работу:</b> {props.profile.lookingForAJobDescription}</p>
+                </div>
             </div>
         </div>
     );

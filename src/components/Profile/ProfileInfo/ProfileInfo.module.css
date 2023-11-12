@@ -5,5 +5,18 @@
 }
 
 .descriptionBlock {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.avatarLarge {
+    border-radius: 10px;
+}
+
+.infoBlock {
+    border-radius: 10px;
+    border: 1px solid white;
     padding: 10px;
+    width: 100%;
 }
