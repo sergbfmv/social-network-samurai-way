@@ -2,9 +2,26 @@
     grid-area: h;
     background-color: #fff;
     border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header img {
     width: 100px;
     border-radius: 10px;
+}
+
+.loginBlock {
+    margin-right: 30px;
+}
+
+.loginLink {
+    color: #1c52e1;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.loginName {
+    color: #1c52e1;
 }

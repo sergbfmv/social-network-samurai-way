@@ -54,7 +54,7 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING'
 
-const initialState = {
+const initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
