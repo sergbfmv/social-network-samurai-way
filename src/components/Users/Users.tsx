@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import defaultUserPhoto from "../../assets/images/defaultAvatar.jpeg";
 import {UsersType} from "../../redux/UsersReducer";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 
 export const Users = (props: UsersPropsType) => {
@@ -37,26 +36,16 @@ export const Users = (props: UsersPropsType) => {
                                 {u.followed
                                     ? <button disabled={props.followingInProgress.some(id => id === u.id)}
                                               onClick={() => {
-                                                  props.toggleFollowingProgress(true, u.id)
-                                                  usersAPI.unfollow(u.id)
-                                                      .then(data => {
-                                                          if (data.resultCode === 0) {
-                                                              props.unfollow(u.id)
-                                                          }
-                                                          props.toggleFollowingProgress(false, u.id)
-                                                      })
-                                              }}>Unfollow</button>
+                                                  props.unfollowTC(u.id)
+                                              }}>
+                                        Unfollow
+                                    </button>
                                     : <button disabled={props.followingInProgress.some(id => id === u.id)}
                                               onClick={() => {
-                                                  props.toggleFollowingProgress(true, u.id)
-                                                  usersAPI.follow(u.id)
-                                                      .then(data => {
-                                                          if (data.resultCode === 0) {
-                                                              props.follow(u.id)
-                                                          }
-                                                          props.toggleFollowingProgress(false, u.id)
-                                                      })
-                                              }}>Follow</button>}
+                                                  props.followTC(u.id)
+                                              }}>
+                                        Follow
+                                    </button>}
                             </div>
                         </span>
                         <span className={s.textBlock}>
@@ -88,4 +77,6 @@ type UsersPropsType = {
     onPageChanged: (p: number) => void
     toggleFollowingProgress: (isFollowing: boolean, userId: number) => void
     followingInProgress: Number[]
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
 }

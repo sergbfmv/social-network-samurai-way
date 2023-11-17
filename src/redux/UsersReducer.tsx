@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS'
@@ -108,6 +111,44 @@ export const toggleFollowingProgress = (isFollowing: boolean, userId: number) =>
         isFollowing,
         userId
     } as const
+}
+
+
+//TC
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsLoading(true))
+
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(setCurrentPage(currentPage));
+            dispatch(toggleIsLoading(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+}
+
+export const unfollowTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+
+    usersAPI.unfollow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
+}
+
+export const followTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+
+    usersAPI.follow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
 }
 
 
