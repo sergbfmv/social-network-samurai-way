@@ -3,30 +3,18 @@ import {
     follow,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleIsLoading,
+    setUsers,
+    toggleFollowingProgress,
+    toggleIsLoading,
     unfollow,
     UsersType
 } from "../../redux/UsersReducer";
 import {AppStateType} from "../../redux/reduxStore";
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {usersAPI} from "../../api/api";
 
-type UsersPropsType = {
-    users: UsersType[]
-    follow: (id: number) => void
-    unfollow: (id: number) => void
-    setUsers: (users: UsersType[]) => void
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    isLoading: boolean
-    toggleIsLoading: (isLoading: boolean) => void
-}
 
 export class UsersContainer extends React.Component<UsersPropsType> {
 
@@ -65,6 +53,8 @@ export class UsersContainer extends React.Component<UsersPropsType> {
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                     totalUsersCount={this.props.totalUsersCount}
+                    toggleFollowingProgress={this.props.toggleFollowingProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         );
@@ -77,7 +67,8 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -110,5 +101,24 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsLoading
+    toggleIsLoading,
+    toggleFollowingProgress
 })(UsersContainer)
+
+
+//types
+type UsersPropsType = {
+    users: UsersType[]
+    follow: (id: number) => void
+    unfollow: (id: number) => void
+    setUsers: (users: UsersType[]) => void
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    isLoading: boolean
+    toggleIsLoading: (isLoading: boolean) => void
+    toggleFollowingProgress: (isFollowing: boolean, userId: number) => void
+    followingInProgress: Number[]
+}

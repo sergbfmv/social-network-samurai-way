@@ -1,65 +1,18 @@
-type FollowACType = {
-    type: 'FOLLOW',
-    userId: number
-}
-
-type UnfollowACType = {
-    type: 'UNFOLLOW',
-    userId: number
-}
-
-type SetUsersAC = ReturnType<typeof setUsers>
-
-type SetCurrentPageAC = ReturnType<typeof setCurrentPage>
-type SetTotalUsersCountAC = ReturnType<typeof setTotalUsersCount>
-type ToggleIsLoadingAC = ReturnType<typeof toggleIsLoading>
-
-type LocationType = {
-    city: string
-    country: string
-}
-
-export type UsersType = {
-    id: number
-    followed: boolean
-    name: string
-    status: string
-    location: LocationType
-    photos: {
-        small: string
-        large: string
-    }
-}
-
-export type UsersPageType = {
-    users: UsersType[]
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number,
-    isLoading: boolean
-}
-
-type ActionsTypes =
-    FollowACType
-    | UnfollowACType
-    | SetUsersAC
-    | SetCurrentPageAC
-    | SetTotalUsersCountAC
-    | ToggleIsLoadingAC
-
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING'
+const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE-IS-FOLLOWING-IN-PROGRESS'
 
 const initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isLoading: true
+    isLoading: true,
+    followingInProgress: []
 }
 
 export const UsersReducer = (state: UsersPageType = initialState, action: ActionsTypes): UsersPageType => {
@@ -94,11 +47,19 @@ export const UsersReducer = (state: UsersPageType = initialState, action: Action
                 ...state,
                 isLoading: action.isLoading
             }
+        case TOGGLE_IS_FOLLOWING_IN_PROGRESS:
+            return {
+                ...state, followingInProgress: action.isFollowing
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
 }
 
+
+//AC
 export const follow = (userId: number): FollowACType => {
     return {
         type: FOLLOW,
@@ -140,4 +101,66 @@ export const toggleIsLoading = (isLoading: boolean) => {
         isLoading
     } as const
 }
+
+export const toggleFollowingProgress = (isFollowing: boolean, userId: number) => {
+    return {
+        type: TOGGLE_IS_FOLLOWING_IN_PROGRESS,
+        isFollowing,
+        userId
+    } as const
+}
+
+
+//types
+type FollowACType = {
+    type: 'FOLLOW',
+    userId: number
+}
+
+type UnfollowACType = {
+    type: 'UNFOLLOW',
+    userId: number
+}
+
+type SetUsersAC = ReturnType<typeof setUsers>
+
+type SetCurrentPageAC = ReturnType<typeof setCurrentPage>
+type SetTotalUsersCountAC = ReturnType<typeof setTotalUsersCount>
+type ToggleIsLoadingAC = ReturnType<typeof toggleIsLoading>
+type ToggleFollowingProgress = ReturnType<typeof toggleFollowingProgress>
+
+type LocationType = {
+    city: string
+    country: string
+}
+
+export type UsersType = {
+    id: number
+    followed: boolean
+    name: string
+    status: string
+    location: LocationType
+    photos: {
+        small: string
+        large: string
+    }
+}
+
+export type UsersPageType = {
+    users: UsersType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isLoading: boolean
+    followingInProgress: Number[]
+}
+
+type ActionsTypes =
+    FollowACType
+    | UnfollowACType
+    | SetUsersAC
+    | SetCurrentPageAC
+    | SetTotalUsersCountAC
+    | ToggleIsLoadingAC
+    | ToggleFollowingProgress
 

@@ -3,19 +3,9 @@ import s from "./Users.module.css";
 import defaultUserPhoto from "../../assets/images/defaultAvatar.jpeg";
 import {UsersType} from "../../redux/UsersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {usersAPI} from "../../api/api";
 
 
-type UsersPropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    follow: (id: number) => void
-    unfollow: (id: number) => void
-    users: UsersType[]
-    onPageChanged: (p: number) => void
-}
 export const Users = (props: UsersPropsType) => {
     let pagesCount = props.totalUsersCount / props.pageSize
     let pages = []
@@ -39,27 +29,34 @@ export const Users = (props: UsersPropsType) => {
                             <div>
                                 <NavLink to={'/profile/' + u.id}>
                                     <img className={s.userAvatar}
-                                         src={u.photos.small != null ? u.photos.small : defaultUserPhoto}/>
+                                         src={u.photos.small != null ? u.photos.small : defaultUserPhoto}
+                                         alt={'user photo'}/>
                                 </NavLink>
                             </div>
                             <div>
                                 {u.followed
-                                    ? <button onClick={() => {
-                                        usersAPI.unfollow(u.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.unfollow(u.id)
-                                                }
-                                            })
-                                    }}>Unfollow</button>
-                                    : <button onClick={() => {
-                                        usersAPI.follow(u.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.follow(u.id)
-                                                }
-                                            })
-                                    }}>Follow</button>}
+                                    ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                              onClick={() => {
+                                                  props.toggleFollowingProgress(true, u.id)
+                                                  usersAPI.unfollow(u.id)
+                                                      .then(data => {
+                                                          if (data.resultCode === 0) {
+                                                              props.unfollow(u.id)
+                                                          }
+                                                          props.toggleFollowingProgress(false, u.id)
+                                                      })
+                                              }}>Unfollow</button>
+                                    : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                              onClick={() => {
+                                                  props.toggleFollowingProgress(true, u.id)
+                                                  usersAPI.follow(u.id)
+                                                      .then(data => {
+                                                          if (data.resultCode === 0) {
+                                                              props.follow(u.id)
+                                                          }
+                                                          props.toggleFollowingProgress(false, u.id)
+                                                      })
+                                              }}>Follow</button>}
                             </div>
                         </span>
                         <span className={s.textBlock}>
@@ -78,3 +75,17 @@ export const Users = (props: UsersPropsType) => {
         </div>
     );
 };
+
+
+//types
+type UsersPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    follow: (id: number) => void
+    unfollow: (id: number) => void
+    users: UsersType[]
+    onPageChanged: (p: number) => void
+    toggleFollowingProgress: (isFollowing: boolean, userId: number) => void
+    followingInProgress: Number[]
+}
