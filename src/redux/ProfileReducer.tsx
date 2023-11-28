@@ -1,9 +1,10 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_STATUS = 'SET-STATUS'
 
 const initialState: ProfilePageType = {
     posts: [
@@ -11,7 +12,8 @@ const initialState: ProfilePageType = {
         {id: 2, message: 'It is my first post', likesCount: 11},
     ],
     newPostText: 'It-camasutra',
-    profile: undefined
+    profile: undefined,
+    status: '',
 }
 
 export const ProfileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
@@ -27,6 +29,8 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, newPostText: (action as UpdateNewPostTextActionType).newText}
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
+        case SET_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -54,6 +58,13 @@ export const setUserProfile = (profile: ProfileType): SetUserProfileType => {
     } as const
 }
 
+export const setStatus = (status: string) => {
+    return {
+        type: SET_STATUS,
+        status
+    } as const
+}
+
 
 //TC
 export const getUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
@@ -63,8 +74,26 @@ export const getUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
         })
 }
 
+export const getUserStatusTC = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(res => {
+            dispatch(setStatus(res.data))
+        })
+}
+
+export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
+}
+
 
 //Types
+export type SetStatusACType = ReturnType<typeof setStatus>
+
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
@@ -84,6 +113,7 @@ export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
     profile: ProfileType | undefined
+    status: string
 }
 
 export type SetUserProfileType = {
@@ -120,3 +150,4 @@ type ActionsTypes =
     AddPostActionType
     | UpdateNewPostTextActionType
     | SetUserProfileType
+    | SetStatusACType
