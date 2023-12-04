@@ -1,11 +1,21 @@
 import React from 'react';
+import LoginForm from './LoginForm';
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/reduxStore";
 
-const Login = () => {
+export const Login = () => {
+    const isLoggedIn = useSelector<AppStateType>(state => state.auth.isAuth)
+
+    // if (isLoggedIn) {
+    //     return <Redirect to={'/profile'}/>
+    // }
+
     return (
-        <div>
-            Login
-        </div>
+        <>
+            <h1>Login</h1>
+            <LoginForm/>
+        </>
     );
 };
 
-export default Login;
+
