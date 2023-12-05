@@ -53,6 +53,7 @@ const LoginForm: React.FC = () => {
             initialValues={{remember: true}}
             onFinish={formik.handleSubmit}
             autoComplete="off"
+            className={'ant-form ant-form-horizontal ant-form-css-var css-1qmo85z css-var-r4'}
         >
             <Form.Item
                 label="Email"

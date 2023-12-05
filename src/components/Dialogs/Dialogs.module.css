@@ -49,11 +49,11 @@
 
 .messageArea {
     width: 75%;
-    height: 20px;
+    min-height: 40px;
     border-radius: 10px;
     background: #ffffff;
     border: none;
-    padding: 12px 24px;
+    padding: 8px 24px 12px;
     resize: none;
     font-size: 16px;
 }
