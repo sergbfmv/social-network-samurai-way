@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Checkbox, Form, Input} from 'antd';
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
+import {loginTC} from "../../redux/AuthReducer";
 
 
 const LoginForm: React.FC = () => {
@@ -30,8 +31,9 @@ const LoginForm: React.FC = () => {
             return errors
         },
         onSubmit: values => {
+            dispatch(loginTC(values.email, values.password, values.rememberMe))
             // dispatch(loginTC(values))
-            alert(JSON.stringify(values));
+            // alert(JSON.stringify(values));
             // formik.resetForm()
         },
     })

@@ -2,13 +2,14 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/reduxStore";
+import {Redirect} from "react-router-dom";
 
 export const Login = () => {
     const isLoggedIn = useSelector<AppStateType>(state => state.auth.isAuth)
 
-    // if (isLoggedIn) {
-    //     return <Redirect to={'/profile'}/>
-    // }
+    if (isLoggedIn) {
+        return <Redirect to={'/profile'}/>
+    }
 
     return (
         <>
