@@ -3,14 +3,6 @@ import {Button, Checkbox, Form, Input} from 'antd';
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-};
-
 
 const LoginForm: React.FC = () => {
 
@@ -31,7 +23,7 @@ const LoginForm: React.FC = () => {
             }
 
             if (!values.password) {
-                errors.password = 'Email is required'
+                errors.password = 'Password is required'
             } else if (values.password.length < 3) {
                 errors.password = 'Password should be 3 or more symbols'
             }

@@ -14,3 +14,43 @@
     gap: 10px;
     margin-top: 10px;
 }
+
+
+.sendMessageForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 56px;
+}
+
+.messageArea {
+    width: 75%;
+    min-height: 40px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: none;
+    padding: 8px 24px 12px;
+    resize: none;
+    font-size: 16px;
+}
+
+.sendMessageBtn {
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #1c52e1;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.sendMessageBtn:disabled {
+    background-color: #87aaff; /* Серый цвет фона */
+    color: #ffffff; /* Серый цвет текста */
+    cursor: not-allowed; /* Изменение курсора */
+    /* Дополнительные стили при необходимости */
+}
+
+.error {
+    border: 2px solid red;
+}

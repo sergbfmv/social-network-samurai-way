@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPageType} from "../../redux/DialogsReducer";
+import {useFormik} from "formik";
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
@@ -13,16 +14,11 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             <DialogItem key={d.id} name={d.name} id={d.id}/>
         )
     })
-    const newMessageBody = state.newMessageBody
 
-    const onSendMessageClick = () => {
-        props.onSendMessageClick()
+    const onSendMessageClick = (message: string) => {
+        props.onSendMessageClick(message)
     }
 
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.onNewMessageChange(text)
-    }
 
     return (
         <div className={s.dialogs}>
@@ -31,11 +27,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <div className={s.sendMessageForm}>
-                    <textarea value={newMessageBody} onChange={onNewMessageChange}
-                              placeholder='Enter message' className={s.messageArea}></textarea>
-                    <button className={s.sendMessageBtn} onClick={onSendMessageClick}>Send</button>
-                </div>
+                <AddMessageForm sendMessage={onSendMessageClick}/>
             </div>
         </div>
     );
@@ -45,7 +37,64 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 //Types
 export type DialogsPropsType = {
     onNewMessageChange: (text: string) => void
-    onSendMessageClick: () => void
+    onSendMessageClick: (message: string) => void
     dialogsPage: DialogsPageType
     isAuth: boolean
+}
+
+
+export const AddMessageForm = (props: PropsType) => {
+
+    const formik = useFormik({
+        initialValues: {
+            message: ''
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {}
+            if (!values.message) {
+                errors.message = 'Сannot be empty'
+            }
+
+            return errors
+        },
+        onSubmit: values => {
+            // dispatch(loginTC(values))
+            // alert(JSON.stringify(values));
+            props.sendMessage(values.message)
+            formik.resetForm()
+        },
+    })
+
+    return (
+        <>
+            <form className={s.sendMessageForm} onSubmit={formik.handleSubmit}>
+                    <textarea
+                        placeholder='Enter message'
+                        className={formik.errors.message ? s.error + ' ' + s.messageArea : s.messageArea}
+                        {...formik.getFieldProps('message')}
+                        name="message"
+                        onBlur={formik.handleBlur}
+                        value={formik.values.message}
+                        // onChange={(e) => {
+                        //     props.onChange(e);
+                        //     formik.handleChange(e);
+                        // }}
+                    ></textarea>
+                <button className={s.sendMessageBtn}
+                        disabled={!formik.isValid || formik.values.message.length < 1}>Send
+                </button>
+            </form>
+            <span style={{color: 'red'}}>{formik.errors.message}</span>
+        </>
+    )
+}
+
+
+//Types
+type FormikErrorType = {
+    message?: string
+}
+
+type PropsType = {
+    sendMessage: (message: string) => void
 }

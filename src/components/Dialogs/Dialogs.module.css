@@ -65,4 +65,16 @@
     background-color: #1c52e1;
     color: white;
     border: none;
+    cursor: pointer;
+}
+
+.sendMessageBtn:disabled {
+    background-color: #87aaff; /* Серый цвет фона */
+    color: #ffffff; /* Серый цвет текста */
+    cursor: not-allowed; /* Изменение курсора */
+    /* Дополнительные стили при необходимости */
+}
+
+.error {
+    border: 2px solid red;
 }
