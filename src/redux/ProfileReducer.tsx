@@ -56,14 +56,14 @@ export const setStatus = (status: string) => {
 
 
 //TC
-export const getUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
+export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId)
         .then(res => {
             dispatch(setUserProfile(res.data))
         })
 }
 
-export const getUserStatusTC = (userId: string) => (dispatch: Dispatch) => {
+export const getUserStatusTC = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(res => {
             dispatch(setStatus(res.data))

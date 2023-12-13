@@ -2,20 +2,24 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {AppDispatch} from "./reduxStore";
 
-const SET_USER_DATA = 'SET-USER-DATA';
+const SET_USER_DATA = 'SET-USER-DATA'
+const ERROR_MESSAGE = 'ERROR-MESSAGE'
 
 const initialState: AuthType = {
-    userId: null,
-    email: null,
-    login: null,
-    isAuth: false
+    userId: 1,
+    email: '',
+    login: '',
+    isAuth: false,
+    errorMessage: ''
 }
 
 export const AuthReducer = (state: AuthType = initialState, action: ActionsTypes): AuthType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {...state, ...action.payload}
-
+        case ERROR_MESSAGE: {
+            return {...state, errorMessage: action.errorMessage}
+        }
         default:
             return state
     }
@@ -23,7 +27,7 @@ export const AuthReducer = (state: AuthType = initialState, action: ActionsTypes
 
 
 //AC
-export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => {
+export const setAuthUserData = (userId: number, email: string, login: string, isAuth: boolean) => {
     return {
         type: SET_USER_DATA,
         payload: {
@@ -35,16 +39,17 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
     } as const
 }
 
+export const errorAuthMessageAC = (errorMessage: string) => {
+    return {type: ERROR_MESSAGE, errorMessage} as const
+}
 
 //TC
-export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
-    authAPI.me()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                let {id, email, login} = res.data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        })
+export const getAuthUserDataTC = () => async (dispatch: Dispatch) => {
+    const res = await authAPI.me();
+    if (res.data.resultCode === 0) {
+        let {id, email, login} = res.data.data;
+        dispatch(setAuthUserData(id, email, login, true));
+    }
 }
 
 
@@ -53,6 +58,13 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(getAuthUserDataTC())
+                dispatch(errorAuthMessageAC(''))
+            } else {
+                if (res.data.resultCode === 10) {
+                    dispatch(errorAuthMessageAC('Bad captcha, go to main site =('))
+                }
+                let errorMesage = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+                dispatch(errorAuthMessageAC(errorMesage))
             }
         })
 }
@@ -61,7 +73,7 @@ export const logoutTC = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false))
+                dispatch(setAuthUserData(0, '', '', false))
             }
         })
 }
@@ -69,13 +81,15 @@ export const logoutTC = () => (dispatch: Dispatch) => {
 
 //Types
 type SetUserDataACType = ReturnType<typeof setAuthUserData>
+type ErrorMessageACType = ReturnType<typeof errorAuthMessageAC>
 
 export type AuthType = {
-    userId: number | null,
-    email: string | null,
-    login: string | null,
+    userId: number
+    email: string
+    login: string
     isAuth: boolean
+    errorMessage: string
 }
 
-type ActionsTypes = SetUserDataACType
+type ActionsTypes = SetUserDataACType | ErrorMessageACType
 

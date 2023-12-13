@@ -13,7 +13,6 @@ import {AppStateType} from "../../redux/reduxStore";
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -70,31 +69,7 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-// const mapDispatchToProps = (dispatch: Dispatch) => {
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId: number) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users: UsersType[]) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (pageNumber: number) => {
-//             dispatch(setCurrentPageAC(pageNumber))
-//         },
-//         setTotalUsersCount: (totalCount: number) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         toggleIsLoading: (isLoading: boolean) => {
-//             dispatch(toggleIsLoadingAC(isLoading))
-//         }
-//     }
-// }
-
-
-export default compose<React.ComponentType>(withAuthRedirect, connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,

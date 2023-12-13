@@ -3,11 +3,13 @@ import {Button, Checkbox, Form, Input} from 'antd';
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import {loginTC} from "../../redux/AuthReducer";
+import {useAppSelector} from "../../redux/reduxStore";
 
 
 const LoginForm: React.FC = () => {
 
     const dispatch = useDispatch()
+    const errorMessage = useAppSelector(state => state.auth.errorMessage)
 
     const formik = useFormik({
         initialValues: {
@@ -28,13 +30,15 @@ const LoginForm: React.FC = () => {
             } else if (values.password.length < 3) {
                 errors.password = 'Password should be 3 or more symbols'
             }
+
+            if (errorMessage.length > 1) {
+                errors.email = '   '
+                errors.password = errorMessage
+            }
             return errors
         },
         onSubmit: values => {
             dispatch(loginTC(values.email, values.password, values.rememberMe))
-            // dispatch(loginTC(values))
-            // alert(JSON.stringify(values));
-            // formik.resetForm()
         },
     })
 
@@ -82,6 +86,7 @@ const LoginForm: React.FC = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                 />
+                {/*{errorMessage.length > 0 ? <div style={{color: 'red'}}>{errorMessage}</div> : ''}*/}
             </Form.Item>
 
             <Form.Item<FieldType>

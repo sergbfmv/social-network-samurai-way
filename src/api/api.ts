@@ -21,7 +21,7 @@ export const usersAPI = {
             .then(res => res.data)
     },
 
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         console.warn('Obsolete method. Please, use profileAPI')
         return profileAPI.getProfile(userId)
     }
@@ -29,11 +29,11 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get(`profile/${userId}`)
     },
 
-    getStatus(userId: string) {
+    getStatus(userId: number) {
         return instance.get(`profile/status/${userId}`)
     },
 
