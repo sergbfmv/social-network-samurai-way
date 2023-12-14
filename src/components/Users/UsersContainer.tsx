@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {
     follow,
     followTC,
-    getUsersTC,
+    requestUsersTC,
     setCurrentPage,
     toggleFollowingProgress,
     unfollow,
@@ -14,6 +14,14 @@ import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsLoading,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 
 export class UsersContainer extends React.Component<UsersPropsType> {
@@ -60,12 +68,12 @@ export class UsersContainer extends React.Component<UsersPropsType> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
@@ -74,7 +82,7 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
     unfollow,
     setCurrentPage,
     toggleFollowingProgress,
-    getUsersTC,
+    getUsersTC: requestUsersTC,
     followTC,
     unfollowTC
 }))(UsersContainer)

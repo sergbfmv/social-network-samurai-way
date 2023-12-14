@@ -115,12 +115,12 @@ export const toggleFollowingProgress = (isFollowing: boolean, userId: number) =>
 
 
 //TC
-export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const requestUsersTC = (page: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(toggleIsLoading(true))
 
-    usersAPI.getUsers(currentPage, pageSize)
+    usersAPI.getUsers(page, pageSize)
         .then(data => {
-            dispatch(setCurrentPage(currentPage));
+            dispatch(setCurrentPage(page));
             dispatch(toggleIsLoading(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
