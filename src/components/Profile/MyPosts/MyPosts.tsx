@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {useFormik} from "formik";
@@ -14,7 +14,7 @@ export type MyPostsPropsType = {
     addPost: (post: string) => void
 }
 
-export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+export const MyPosts = memo((props: MyPostsPropsType) => {
 
     const addPost = (post: string) => {
         props.addPost(post)
@@ -38,7 +38,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             </div>
         </div>
     );
-};
+})
 
 
 export const AddPostForm = (props: PropsType) => {
