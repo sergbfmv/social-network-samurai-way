@@ -18,10 +18,6 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
 
     return (
         <div>
-            {/*<div>*/}
-            {/*    <img className={s.img} src="https://www.ens-abidjan.org/slide/Jssor.Slider.FullPack/img/home/01.jpg"*/}
-            {/*         alt="bg-image"/>*/}
-            {/*</div>*/}
             <div className={s.descriptionBlock}>
                 <img alt={'avatar'} src={props.profile.photos.large} className={s.avatarLarge}/>
                 <div className={s.infoBlock}>

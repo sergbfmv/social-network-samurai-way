@@ -32,15 +32,6 @@ export class UsersContainer extends React.Component<UsersPropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsersTC(pageNumber, this.props.pageSize)
-
-        // this.props.toggleIsLoading(true)
-        // this.props.setCurrentPage(pageNumber)
-        //
-        // usersAPI.getUsers(pageNumber, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.toggleIsLoading(false)
-        //         this.props.setUsers(data.items)
-        //     })
     }
 
     render() {

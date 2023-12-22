@@ -1,10 +1,10 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
-const ADD_POST = 'ADD-POST';
-const DELETE_POST = 'DELETE-POST';
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
-const SET_STATUS = 'SET-STATUS'
+const ADD_POST = 'samurai-network/profile/ADD-POST';
+const DELETE_POST = 'samurai-network/profile/DELETE-POST';
+const SET_USER_PROFILE = 'samurai-network/profile/SET-USER-PROFILE'
+const SET_STATUS = 'samurai-network/profile/SET-STATUS'
 
 const initialState: ProfilePageType = {
     posts: [
@@ -36,14 +36,14 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Ac
 
 
 //AC
-export const addPostActionCreator = (post: string): AddPostActionType => {
+export const addPostActionCreator = (post: string) => {
     return {
         type: ADD_POST,
         post
-    }
+    } as const
 }
 
-export const setUserProfile = (profile: ProfileType): SetUserProfileType => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: SET_USER_PROFILE,
         profile
@@ -66,27 +66,24 @@ export const deletePost = (id: number) => {
 
 
 //TC
-export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId)
-        .then(res => {
-            dispatch(setUserProfile(res.data))
-        })
+export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
+    const res = await usersAPI.getProfile(userId)
+
+    dispatch(setUserProfile(res.data))
 }
 
-export const getUserStatusTC = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(res => {
-            dispatch(setStatus(res.data))
-        })
+export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.getStatus(userId)
+
+    dispatch(setStatus(res.data))
 }
 
-export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.updateStatus(status)
+
+    if (res.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 }
 
 
@@ -94,10 +91,8 @@ export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
 export type SetStatusACType = ReturnType<typeof setStatus>
 export type DeletePost = ReturnType<typeof deletePost>
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-    post: string
-}
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type SetUserProfileType = ReturnType<typeof setUserProfile>
 
 type PostsType = {
     id: number
@@ -109,11 +104,6 @@ export type ProfilePageType = {
     posts: PostsType[]
     profile: ProfileType | undefined
     status: string
-}
-
-export type SetUserProfileType = {
-    type: 'SET-USER-PROFILE'
-    profile: ProfileType
 }
 
 export type usersPhotosStateType = {

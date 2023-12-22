@@ -2,8 +2,8 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {AppDispatch} from "./reduxStore";
 
-const SET_USER_DATA = 'SET-USER-DATA'
-const ERROR_MESSAGE = 'ERROR-MESSAGE'
+const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA'
+const ERROR_MESSAGE = 'samurai-network/auth/ERROR-MESSAGE'
 
 const initialState: AuthType = {
     userId: 1,
@@ -53,29 +53,27 @@ export const getAuthUserDataTC = () => async (dispatch: Dispatch) => {
 }
 
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
-    authAPI.login(email, password, rememberMe)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(getAuthUserDataTC())
-                dispatch(errorAuthMessageAC(''))
-            } else {
-                if (res.data.resultCode === 10) {
-                    dispatch(errorAuthMessageAC('Bad captcha, go to main site =('))
-                }
-                let errorMesage = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
-                dispatch(errorAuthMessageAC(errorMesage))
-            }
-        })
+export const loginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: AppDispatch) => {
+    const res = await authAPI.login(email, password, rememberMe)
+
+    if (res.data.resultCode === 0) {
+        dispatch(getAuthUserDataTC())
+        dispatch(errorAuthMessageAC(''))
+    } else {
+        if (res.data.resultCode === 10) {
+            dispatch(errorAuthMessageAC('Bad captcha, go to main site =('))
+        }
+        let errorMesage = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+        dispatch(errorAuthMessageAC(errorMesage))
+    }
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
-    authAPI.logout()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setAuthUserData(0, '', '', false))
-            }
-        })
+export const logoutTC = () => async (dispatch: Dispatch) => {
+    const res = await authAPI.logout()
+
+    if (res.data.resultCode === 0) {
+        dispatch(setAuthUserData(0, '', '', false))
+    }
 }
 
 

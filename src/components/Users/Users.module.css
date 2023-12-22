@@ -53,11 +53,6 @@
     margin-bottom: 20px;
 }
 
-.selectedPage {
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.pageSelector {
+button {
     cursor: pointer;
 }

@@ -1,13 +1,13 @@
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING'
-const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE-IS-FOLLOWING-IN-PROGRESS'
+const FOLLOW = 'samurai-network/users/FOLLOW';
+const UNFOLLOW = 'samurai-network/users/UNFOLLOW';
+const SET_USERS = 'samurai-network/users/SET-USERS'
+const SET_CURRENT_PAGE = 'samurai-network/users/SET-CURRENT-PAGE'
+const SET_TOTAL_USERS_COUNT = 'samurai-network/users/SET-TOTAL-USERS-COUNT'
+const TOGGLE_IS_LOADING = 'samurai-network/users/TOGGLE-IS-LOADING'
+const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'samurai-network/users/TOGGLE-IS-FOLLOWING-IN-PROGRESS'
 
 const initialState: UsersPageType = {
     users: [],
@@ -63,18 +63,18 @@ export const UsersReducer = (state: UsersPageType = initialState, action: Action
 
 
 //AC
-export const follow = (userId: number): FollowACType => {
+export const follow = (userId: number) => {
     return {
         type: FOLLOW,
         userId
-    }
+    } as const
 }
 
-export const unfollow = (userId: number): UnfollowACType => {
+export const unfollow = (userId: number) => {
     return {
         type: UNFOLLOW,
         userId
-    }
+    } as const
 }
 
 export const setUsers = (users: UsersType[]) => {
@@ -115,53 +115,45 @@ export const toggleFollowingProgress = (isFollowing: boolean, userId: number) =>
 
 
 //TC
-export const requestUsersTC = (page: number, pageSize: number) => (dispatch: Dispatch) => {
+export const requestUsersTC = (page: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsLoading(true))
 
-    usersAPI.getUsers(page, pageSize)
-        .then(data => {
-            dispatch(setCurrentPage(page));
-            dispatch(toggleIsLoading(false))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
-        })
+    const data = await usersAPI.getUsers(page, pageSize)
+
+    dispatch(setCurrentPage(page));
+    dispatch(toggleIsLoading(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUsersCount(data.totalCount))
+
 }
 
-export const unfollowTC = (userId: number) => (dispatch: Dispatch) => {
+export const unfollowTC = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
 
-    usersAPI.unfollow(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(unfollow(userId))
-            }
-            dispatch(toggleFollowingProgress(false, userId))
-        })
+    const data = await usersAPI.unfollow(userId)
+
+    if (data.resultCode === 0) {
+        dispatch(unfollow(userId))
+    }
+    dispatch(toggleFollowingProgress(false, userId))
+
 }
 
-export const followTC = (userId: number) => (dispatch: Dispatch) => {
+export const followTC = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
 
-    usersAPI.follow(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(follow(userId))
-            }
-            dispatch(toggleFollowingProgress(false, userId))
-        })
+    const data = await usersAPI.follow(userId)
+
+    if (data.resultCode === 0) {
+        dispatch(follow(userId))
+    }
+    dispatch(toggleFollowingProgress(false, userId))
 }
 
 
 //types
-type FollowACType = {
-    type: 'FOLLOW',
-    userId: number
-}
-
-type UnfollowACType = {
-    type: 'UNFOLLOW',
-    userId: number
-}
+type FollowACType = ReturnType<typeof follow>
+type UnfollowACType = ReturnType<typeof unfollow>
 
 type SetUsersAC = ReturnType<typeof setUsers>
 

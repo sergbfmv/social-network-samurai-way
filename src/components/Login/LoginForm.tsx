@@ -73,7 +73,6 @@ const LoginForm: React.FC = () => {
             <Form.Item<FieldType>
                 label="Password"
                 validateStatus={formik.touched.password && formik.errors.password ? 'error' : ''}
-
                 help={
                     formik.touched.password && formik.errors.password ? (
                         <span style={{color: 'red'}}>{formik.errors.password}</span>
