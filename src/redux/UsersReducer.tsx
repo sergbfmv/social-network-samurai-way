@@ -11,7 +11,7 @@ const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'samurai-network/users/TOGGLE-IS-FOLLOWI
 
 const initialState: UsersPageType = {
     users: [],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isLoading: true,

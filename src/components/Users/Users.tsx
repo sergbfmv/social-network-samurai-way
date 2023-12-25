@@ -19,7 +19,8 @@ export const Users = (props: UsersPropsType) => {
                 currentPage={props.currentPage}
                 onPageChanged={props.onPageChanged}
                 pageSize={props.pageSize}
-                totalUsersCount={props.totalUsersCount}
+                totalItemsCount={props.totalUsersCount}
+                portionSize={10}
             />
             {props.users.map(u => {
                 return (
