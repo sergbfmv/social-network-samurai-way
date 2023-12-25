@@ -9,11 +9,13 @@ import {Store} from "redux";
 
 
 ReactDOM.render(
+    // <HashRouter basename={process.env.PUBLIC_URL}>
     <BrowserRouter>
         <Provider store={store as Store<AppStateType>}>
             <App/>
         </Provider>
     </BrowserRouter>,
+    // </HashRouter>,
     document.getElementById('root')
 );
 
