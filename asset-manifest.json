@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/social-network-samurai-way/static/css/main.94c4e9fe.css",
+    "main.js": "/social-network-samurai-way/static/js/main.8132a418.js",
+    "static/css/237.1cf5801d.chunk.css": "/social-network-samurai-way/static/css/237.1cf5801d.chunk.css",
+    "static/js/237.c91f05a6.chunk.js": "/social-network-samurai-way/static/js/237.c91f05a6.chunk.js",
+    "static/css/657.64f55420.chunk.css": "/social-network-samurai-way/static/css/657.64f55420.chunk.css",
+    "static/js/657.a2dfa7e6.chunk.js": "/social-network-samurai-way/static/js/657.a2dfa7e6.chunk.js",
+    "static/css/436.85ac2c27.chunk.css": "/social-network-samurai-way/static/css/436.85ac2c27.chunk.css",
+    "static/js/436.34ec04c1.chunk.js": "/social-network-samurai-way/static/js/436.34ec04c1.chunk.js",
+    "static/media/preloader.gif": "/social-network-samurai-way/static/media/preloader.ebc6145167db91e23a43.gif",
+    "static/media/defaultAvatar.jpeg": "/social-network-samurai-way/static/media/defaultAvatar.8e7ab55da0bc52271ed8.jpeg",
+    "index.html": "/social-network-samurai-way/index.html",
+    "main.94c4e9fe.css.map": "/social-network-samurai-way/static/css/main.94c4e9fe.css.map",
+    "main.8132a418.js.map": "/social-network-samurai-way/static/js/main.8132a418.js.map",
+    "237.1cf5801d.chunk.css.map": "/social-network-samurai-way/static/css/237.1cf5801d.chunk.css.map",
+    "237.c91f05a6.chunk.js.map": "/social-network-samurai-way/static/js/237.c91f05a6.chunk.js.map",
+    "657.64f55420.chunk.css.map": "/social-network-samurai-way/static/css/657.64f55420.chunk.css.map",
+    "657.a2dfa7e6.chunk.js.map": "/social-network-samurai-way/static/js/657.a2dfa7e6.chunk.js.map",
+    "436.85ac2c27.chunk.css.map": "/social-network-samurai-way/static/css/436.85ac2c27.chunk.css.map",
+    "436.34ec04c1.chunk.js.map": "/social-network-samurai-way/static/js/436.34ec04c1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.94c4e9fe.css",
+    "static/js/main.8132a418.js"
+  ]
+}
