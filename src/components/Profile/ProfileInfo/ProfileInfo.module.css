@@ -12,6 +12,7 @@
 
 .avatarLarge {
     border-radius: 10px;
+    max-width: 300px;
 }
 
 .infoBlock {
@@ -19,4 +20,8 @@
     border: 1px solid white;
     padding: 10px;
     width: 100%;
+}
+
+.uploadBtnArea {
+    padding-top: 10px;
 }

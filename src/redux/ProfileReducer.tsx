@@ -5,6 +5,7 @@ const ADD_POST = 'samurai-network/profile/ADD-POST';
 const DELETE_POST = 'samurai-network/profile/DELETE-POST';
 const SET_USER_PROFILE = 'samurai-network/profile/SET-USER-PROFILE'
 const SET_STATUS = 'samurai-network/profile/SET-STATUS'
+const SAVE_PHOTO_SUCCESS = 'samurai-network/profile/SAVE-PHOTO-SUCCESS'
 
 const initialState: ProfilePageType = {
     posts: [
@@ -29,6 +30,8 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, status: action.status}
         case DELETE_POST:
             return {...state, posts: state.posts.filter(p => p.id !== action.id)}
+        case SAVE_PHOTO_SUCCESS:
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         default:
             return state
     }
@@ -64,6 +67,12 @@ export const deletePost = (id: number) => {
     } as const
 }
 
+export const savePhotoSuccess = (photos: UsersPhotosStateType) => {
+    return {
+        type: SAVE_PHOTO_SUCCESS, photos
+    } as const
+}
+
 
 //TC
 export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
@@ -86,10 +95,19 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
     }
 }
 
+export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.savePhoto(file)
+
+    if (res.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(res.data.data.photos))
+    }
+}
+
 
 //Types
 export type SetStatusACType = ReturnType<typeof setStatus>
 export type DeletePost = ReturnType<typeof deletePost>
+export type SavePhotoSuccess = ReturnType<typeof savePhotoSuccess>
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
@@ -106,7 +124,7 @@ export type ProfilePageType = {
     status: string
 }
 
-export type usersPhotosStateType = {
+export type UsersPhotosStateType = {
     small: string
     large: string
 }
@@ -117,7 +135,7 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     userId: number
-    photos: usersPhotosStateType
+    photos: UsersPhotosStateType
 }
 
 export type profileContactsType = {
@@ -136,3 +154,4 @@ type ActionsTypes =
     | SetUserProfileType
     | SetStatusACType
     | DeletePost
+    | SavePhotoSuccess
