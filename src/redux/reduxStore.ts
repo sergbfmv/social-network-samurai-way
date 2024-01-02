@@ -8,21 +8,6 @@ import thunk, {ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {appReducer} from "./AppReducer";
 
-
-// export type ActionsTypes =
-//     AddPostActionType
-//     | UpdateNewPostTextActionType
-//     | UpdateNewMessageBodyActionType
-//     | SendMessageActionType
-
-// type StoreType = {
-//     _state: AppStateType
-//     getState: () => AppStateType
-//     _callSubscriber: (state: AppStateType) => void
-//     subscribe: (observer: () => void) => void
-//     dispatch: (action: ActionsTypes) => void
-// }
-
 const rootReducer = combineReducers({
     profilePage: ProfileReducer,
     dialogsPage: DialogsReducer,

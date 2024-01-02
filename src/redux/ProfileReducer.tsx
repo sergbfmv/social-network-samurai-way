@@ -6,6 +6,7 @@ const DELETE_POST = 'samurai-network/profile/DELETE-POST';
 const SET_USER_PROFILE = 'samurai-network/profile/SET-USER-PROFILE'
 const SET_STATUS = 'samurai-network/profile/SET-STATUS'
 const SAVE_PHOTO_SUCCESS = 'samurai-network/profile/SAVE-PHOTO-SUCCESS'
+const ERROR_MESSAGE = 'social-network/profile/ERROR-MESSAGE'
 
 const initialState: ProfilePageType = {
     posts: [
@@ -14,6 +15,7 @@ const initialState: ProfilePageType = {
     ],
     profile: undefined,
     status: '',
+    errorMessage: ''
 }
 
 export const ProfileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
@@ -32,6 +34,9 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, posts: state.posts.filter(p => p.id !== action.id)}
         case SAVE_PHOTO_SUCCESS:
             return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
+        case ERROR_MESSAGE: {
+            return {...state, errorMessage: action.errorMessage}
+        }
         default:
             return state
     }
@@ -73,6 +78,10 @@ export const savePhotoSuccess = (photos: UsersPhotosStateType) => {
     } as const
 }
 
+export const errorProfileMessageAC = (errorMessage: string): errorProfileMessageACType => {
+    return {type: ERROR_MESSAGE, errorMessage} as const
+}
+
 
 //TC
 export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
@@ -111,6 +120,10 @@ export type SavePhotoSuccess = ReturnType<typeof savePhotoSuccess>
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
+type errorProfileMessageACType = {
+    type: 'social-network/profile/ERROR-MESSAGE',
+    errorMessage: string
+}
 
 type PostsType = {
     id: number
@@ -122,6 +135,7 @@ export type ProfilePageType = {
     posts: PostsType[]
     profile: ProfileType | undefined
     status: string
+    errorMessage: string
 }
 
 export type UsersPhotosStateType = {
@@ -155,3 +169,4 @@ type ActionsTypes =
     | SetStatusACType
     | DeletePost
     | SavePhotoSuccess
+    | errorProfileMessageACType

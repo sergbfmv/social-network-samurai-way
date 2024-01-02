@@ -6,7 +6,8 @@ let state = {
         {id: 2, message: 'It is my first post', likesCount: 11},
     ],
     profile: undefined,
-    status: ''
+    status: '',
+    errorMessage: ''
 }
 
 test('post should be added', () => {
