@@ -4,7 +4,7 @@ import {profileContactsType, ProfileType} from "../../../redux/ProfileReducer";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatuswithHooks";
 import userPhoto from '../../../assets/images/defaultAvatar.jpeg'
-import {ProfileDataForm} from "./ProfileDataForm";
+import {ProfileDataForm, setProfileType} from "./ProfileDataForm";
 
 type ProfileInfoProps = {
     profile: ProfileType;
@@ -12,6 +12,7 @@ type ProfileInfoProps = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    saveProfile: (profile: setProfileType) => void
 };
 
 

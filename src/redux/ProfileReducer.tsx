@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
+import {AppDispatch, AppStateType} from "./reduxStore";
 
 const ADD_POST = 'samurai-network/profile/ADD-POST';
 const DELETE_POST = 'samurai-network/profile/DELETE-POST';
@@ -104,11 +105,27 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
     }
 }
 
-export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
-    const res = await profileAPI.savePhoto(file)
+export const savePhoto = (profile: ProfileType) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.saveProfile(profile)
 
     if (res.data.resultCode === 0) {
         dispatch(savePhotoSuccess(res.data.data.photos))
+    }
+}
+
+export const saveProfile = (profile: ProfileType, setEditMode: (editMode: boolean) => void) => async (dispatch: AppDispatch, getState: () => AppStateType) => {
+    const userId = getState().auth.userId
+    const res = await profileAPI.saveProfile(profile)
+
+    if (res.data.resultCode === 0) {
+        await dispatch(getUserProfileTC(userId))
+        dispatch(errorProfileMessageAC(''))
+        setEditMode(false)
+    }
+    if (res.data.resultCode === 1) {
+        let errorMessage = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+        dispatch(errorProfileMessageAC(errorMessage))
+        setEditMode(true)
     }
 }
 

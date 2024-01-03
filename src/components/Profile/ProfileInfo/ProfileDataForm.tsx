@@ -4,10 +4,9 @@ import {profileContactsType, ProfileType} from "../../../redux/ProfileReducer";
 import {useAppSelector} from "../../../redux/reduxStore";
 
 
-
 type ProfileDataFormType = {
     profile: ProfileType
-    saveProfile: (profile: setProfileType, setEditMode: (editMode: boolean) => void) => void
+    saveProfile: (profile: setProfileType) => void
     setEditMode: (editMode: boolean) => void
 }
 
@@ -34,7 +33,6 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, savePro
             lookingForAJob: profile.lookingForAJob,
             lookingForAJobDescription: profile.lookingForAJobDescription,
             aboutMe: profile.aboutMe,
-            /*contacts: {...profile.contacts}*/
             facebook: profile.contacts.facebook,
             website: profile.contacts.website,
             vk: profile.contacts.vk,
@@ -65,7 +63,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, savePro
             /*setEditMode(false)*/
             //need realise waite
             onSubmitFormik(saveProfile, newProfile, setEditMode)
-            alert(JSON.stringify(values));
+            // alert(JSON.stringify(values));
         },
     });
     return (
@@ -174,7 +172,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, savePro
     )
 }
 
-type TestType={
+type TestType = {
     fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -188,4 +186,5 @@ type TestType={
         youtube: string
         github: string
         mainLink: string
-    }}
+    }
+}
