@@ -10,12 +10,14 @@ const LoginForm: React.FC = () => {
 
     const dispatch = useDispatch()
     const errorMessage = useAppSelector(state => state.auth.errorMessage)
+    const captchaUrl = useAppSelector(state => state.auth.captchaUrl)
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            captcha: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -31,14 +33,10 @@ const LoginForm: React.FC = () => {
                 errors.password = 'Password should be 3 or more symbols'
             }
 
-            if (errorMessage.length > 1) {
-                errors.email = '   '
-                errors.password = errorMessage
-            }
             return errors
         },
         onSubmit: values => {
-            dispatch(loginTC(values.email, values.password, values.rememberMe))
+            dispatch(loginTC(values.email, values.password, values.rememberMe, values.captcha))
         },
     })
 
@@ -98,6 +96,23 @@ const LoginForm: React.FC = () => {
                     {...formik.getFieldProps('rememberMe')}
                 >Remember me</Checkbox>
             </Form.Item>
+
+            {errorMessage.length > 0 ? <div style={{color: 'red', background: "orange"}}>{errorMessage}</div> : ''}
+
+            <Form.Item wrapperCol={{offset: 8, span: 16}}>
+                {captchaUrl && <img src={captchaUrl} alt={'Captcha'}/>}
+                {captchaUrl && <input
+                    id="captcha"
+                    name="captcha"
+                    type="captcha"
+                    placeholder="captcha"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.captcha}
+
+                />}
+            </Form.Item>
+
 
             <Form.Item wrapperCol={{offset: 8, span: 16}}>
                 <Button type="primary" htmlType="submit">
